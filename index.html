@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Validation</title>
+<style>
+    #error-message {
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Password Validation</h1>
+
+<form id="password-form">
+    <label for="new-password">New Password:</label><br>
+    <input type="password" id="new-password" name="new-password"><br>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="error-message"></div>
+
+<script>
+document.getElementById('password-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get the new password input value
+    const newPassword = document.getElementById('new-password').value;
+
+    // Regular expressions to check password criteria
+    const minLengthRegex = /.{8,}/;
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const numberRegex = /[0-9]/;
+
+    // Check if password meets all criteria
+    if (!minLengthRegex.test(newPassword)) {
+        displayErrorMessage('Password must be at least 8 characters long.');
+    } else if (!uppercaseRegex.test(newPassword)) {
+        displayErrorMessage('Password must contain at least one uppercase letter.');
+    } else if (!lowercaseRegex.test(newPassword)) {
+        displayErrorMessage('Password must contain at least one lowercase letter.');
+    } else if (!numberRegex.test(newPassword)) {
+        displayErrorMessage('Password must contain at least one number.');
+    } else {
+        // If password meets all criteria, display success message
+        displaySuccessMessage('Password is acceptable.');
+    }
+});
+
+// Function to display error message
+function displayErrorMessage(message) {
+    const errorMessageDiv = document.getElementById('error-message');
+    errorMessageDiv.textContent = message;
+}
+
+// Function to display success message
+function displaySuccessMessage(message) {
+    const errorMessageDiv = document.getElementById('error-message');
+    errorMessageDiv.style.color = 'green';
+    errorMessageDiv.textContent = message;
+}
+</script>
+
+</body>
+</html>
